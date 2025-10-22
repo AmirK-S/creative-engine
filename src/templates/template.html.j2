@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Creative</title>
+    <style>
+        body {
+            margin: 0;
+            width: {{ canvas.resolution.split('x') }}px;
+            height: {{ canvas.resolution.split('x')[1] }}px;
+            position: relative;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        #background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 60%;
+            height: 100%;
+            background-image: url('{{ background_image_uri }}');
+            background-size: cover;
+            background-position: center;
+        }
+        #text-panel {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40%;
+            height: 100%;
+            background-color: #009688; /* brand-teal */
+        }
+       .zone {
+            position: absolute;
+            box-sizing: border-box;
+            padding: 10px;
+            white-space: pre-wrap; /* Respecte les retours à la ligne */
+        }
+    </style>
+</head>
+<body>
+    <div id="background-image"></div>
+    <div id="text-panel"></div>
+    {% for zone in zones %}
+    <div id="{{ zone.id }}" class="zone" style="
+        {% for key, value in zone.css_style.items() %}
+            {{ key }}: {{ value }};
+        {% endfor %}
+    ">
+        {{ zone.content.text }}
+    </div>
+    {% endfor %}
+</body>
+</html>
